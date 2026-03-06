@@ -1,51 +1,41 @@
-name: Github Pages
+name: GitHub Pages
 on:
+  push:
+    branches: [ "master" ]
   workflow_dispatch:
+    inputs:
+      VITE_IO_BRIDGE_URL:
+        description: 'Optional bridge URL override for this run (e.g. https://bridge.example.com)'
+        required: false
+        type: string
+
+#concurrency:
+#  group: pages
+#  cancel-in-progress: true
 
 jobs:
   build:
-    runs-on: lnx-build
+    runs-on: ubuntu-latest
 
     permissions:
       contents: read
       id-token: write
 
     steps:
-      - name: Checkout bridge-examples
+      - name: Checkout
         uses: actions/checkout@v6
-        with:
-          path: bridge-examples
-      - name: Checkout connect-js
-        uses: actions/checkout@v6
-        with:
-          repository: InteropIO/connect-js
-          ref: feature/upgrade-gateway
-          path: connect-js
 
-      - name: Use Node 20 for connect-js build
+      - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version-file: .node-version
           cache: npm
-          cache-dependency-path: connect-js/package-lock.json
-
-      - name: Build connect-js
-        working-directory: connect-js/
-        run: |
-          npm ci
-          npm run build
-
-      - name: Use project Node version for office build
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: bridge-examples/.node-version
-          cache: npm
-          cache-dependency-path: bridge-examples/office/package-lock.json
+          cache-dependency-path: office/package-lock.json
       - name: Install dependencies
-        working-directory: bridge-examples/office
+        working-directory: office
         run: npm ci
       - name: Build
-        working-directory: bridge-examples/office
+        working-directory: office
         run: npm run build
         env:
           VITE_IO_BRIDGE_URL: ${{ github.event.inputs.VITE_IO_BRIDGE_URL || vars.VITE_IO_BRIDGE_URL }}
@@ -55,7 +45,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: bridge-examples/office/dist
+          path: office/dist
 
   deploy:
     needs: build

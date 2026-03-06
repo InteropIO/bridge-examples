@@ -1,0 +1,60 @@
+{
+  "name": "@interopio/bridge-example-office",
+  "private": true,
+  "description": "io.Bridge example — browser ↔ Office (Outlook, Excel) integration via io.Connect",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vite build",
+    "clean": "rimraf dist",
+    "start:bridge": "npx @interopio/bridge",
+    "start:gateway": "npx @interopio/gateway-server run",
+    "start:web": "vite --host",
+    "start": "concurrently \"npm:start:bridge\" \"npm:start:gateway\" \"npm:start:web\"",
+    "start:no-gateway": "concurrently \"npm:start:bridge\" \"npm:start:web\"",
+    "start:no-bridge": "concurrently \"npm:start:gateway\" \"npm:start:web\"",
+    "dev": "npm run start:web",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "io.bridge",
+    "office",
+    "outlook",
+    "excel",
+    "gateway",
+    "interop",
+    "example"
+  ],
+  "author": "InteropIO",
+  "license": "MIT",
+  "dependencies": {
+    "@auth0/auth0-react": "^2.16.1",
+    "@interopio/browser": "^4.3.0",
+    "@interopio/browser-platform": "^4.3.0",
+    "@interopio/core": "^6.10.0",
+    "@interopio/home-ui-react": "^4.3.0",
+    "@interopio/modals-ui": "^4.3.0",
+    "@interopio/search-api": "^3.3.0",
+    "@interopio/workspaces-ui-react": "^4.3.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@interopio/bridge": "^1.1.2",
+    "@interopio/desktop": "^6.18.0",
+    "@interopio/gateway": "^0.25.3",
+    "@interopio/gateway-server": "^0.24.2",
+    "@types/node": "^24.12.2",
+    "@types/opener": "^1.4.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^9.2.1",
+    "opener": "^1.5.2",
+    "rimraf": "^6.1.3",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.8"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}
