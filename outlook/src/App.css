@@ -1,0 +1,264 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #213547;
+  background-color: #f5f5f5;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #0078d4;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.indicator.connected {
+  background-color: #28a745;
+  box-shadow: 0 0 4px #28a745;
+}
+
+.indicator.disconnected {
+  background-color: #dc3545;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.app.loading,
+.app.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.app.error h1 {
+  color: #dc3545;
+  margin-bottom: 1rem;
+}
+
+.app.error button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.app.error button:hover {
+  background-color: #005a9e;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Outlook Child App Styles */
+.outlook-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.outlook-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.outlook-header h1 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: #0078d4;
+}
+
+.outlook-header p {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.outlook-main {
+  flex: 1;
+}
+
+.outlook-container .loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.outlook-container .error {
+  background-color: #fff5f5;
+  border: 1px solid #dc3545;
+  border-radius: 8px;
+  padding: 1.5rem;
+  color: #dc3545;
+}
+
+.outlook-container .error h2 {
+  margin-bottom: 0.5rem;
+}
+
+/* Email Form Styles */
+.email-form {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #0078d4;
+  box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.15);
+}
+
+.form-group input:disabled,
+.form-group textarea:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.form-actions {
+  margin-top: 1.5rem;
+}
+
+.form-actions button {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.form-actions button:hover:not(:disabled) {
+  background-color: #005a9e;
+}
+
+.form-actions button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.form-actions button.success {
+  background-color: #28a745;
+}
+
+.error-message {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #fff5f5;
+  border: 1px solid #dc3545;
+  border-radius: 4px;
+  color: #dc3545;
+  font-size: 0.9rem;
+}
+
+.success-message {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #f0fff4;
+  border: 1px solid #28a745;
+  border-radius: 4px;
+  color: #28a745;
+  font-size: 0.9rem;
+}

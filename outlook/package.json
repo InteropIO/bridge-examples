@@ -1,0 +1,55 @@
+{
+  "name": "@interopio/bridge-example-outlook",
+  "private": true,
+  "description": "io.Bridge example demonstrating Outlook integration from a web app",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vite build",
+    "clean": "rimraf dist",
+    "start:bridge": "npx @interopio/bridge --server-port 8084",
+    "start:gateway": "npx @interopio/gateway-server run",
+    "start:web": "vite",
+    "start": "concurrently \"npm:start:bridge\" \"npm:start:gateway\" \"npm:start:web\"",
+    "start:no-gateway": "concurrently \"npm:start:bridge\" \"npm:start:web\"",
+    "dev": "npm run start:web",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "io.bridge",
+    "outlook",
+    "gateway",
+    "interop",
+    "example"
+  ],
+  "author": "InteropIO",
+  "license": "MIT",
+  "dependencies": {
+    "@interopio/browser-platform": "file:../../connect-js/packages/browser-platform",
+    "@interopio/workspaces-api": "file:../../connect-js/packages/workspaces-api",
+    "@interopio/browser": "file:../../connect-js/packages/browser",
+    "@interopio/search-api": "file:../../connect-js/packages/search-api",
+    "@interopio/home-ui-react": "file:../../connect-js/packages/home-ui-react",
+    "@interopio/workspaces-ui-react": "file:../../connect-js/packages/workspaces-ui-react",
+    "@interopio/react-hooks": "file:../../connect-js/packages/react-hooks",
+    "@interopio/core": "file:../../connect-js/packages/core",
+    "@interopio/desktop": "file:../../desktop/packages/desktop-client",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@interopio/bridge": "file:../../bridge/packages/bridge",
+    "@interopio/gateway-server": "file:../../gateway/packages/gateway-server",
+    "@interopio/gateway": "file:../../gateway/packages/gateway",
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "concurrently": "^8.2.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.3.0",
+    "vite": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}
