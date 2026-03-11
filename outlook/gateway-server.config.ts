@@ -14,6 +14,14 @@ const port = '8385'; // same port as glue42
 
 process.loadEnvFile();
 
+function requireNonEmptyEnvVariable(envVarName: string): string {
+    const value = process.env[envVarName];
+    if (!value) {
+        throw new Error(`Environment variable ${envVarName} is required but not set.`);
+    }
+    return value;
+}
+
 export default {
     host,
     port,
@@ -103,10 +111,10 @@ export default {
             {
                 logger: IOGatewayLogging.getLogger('gateway.bridge.auth0'),
                 auth0FlowData,
-                domain: process.env.VITE_AUTH0_DOMAIN ?? '<placeholder-for-missing-env-variable>',
-                clientId: process.env.VITE_AUTH0_CLIENT_ID ?? '<placeholder-for-missing-env-variable>',
-                audience: process.env.VITE_AUTH0_AUDIENCE ?? '<placeholder-for-missing-env-variable>',
-                scopes: process.env.VITE_AUTH0_SCOPES ?? '<placeholder-for-missing-env-variable>'
+                domain: requireNonEmptyEnvVariable('VITE_AUTH0_DOMAIN'),
+                clientId: requireNonEmptyEnvVariable('VITE_AUTH0_CLIENT_ID'),
+                audience: requireNonEmptyEnvVariable('VITE_AUTH0_AUDIENCE'),
+                scopes: requireNonEmptyEnvVariable('VITE_AUTH0_SCOPES')
             },
             configurer
         );

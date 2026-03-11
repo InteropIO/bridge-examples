@@ -8,11 +8,21 @@ import "@interopio/workspaces-ui-react/dist/styles/workspaces.css";
 import './App.css';
 import config from "./config.json";
 
+function requireNonEmptyString (value: string | undefined, name: string): string  {
+    if (!value || value.trim() === "") {
+        throw new Error(`Environment variable ${name} is required and cannot be empty.`);
+    }
+    return value;
+}
+
 const getConfig = (userData: UserData): IOConnectInitSettings => {
     const bridgeUrl = import.meta.env.VITE_IO_CB_BRIDGE_URL || 'http://localhost:8084';
     const licenseKey = (userData.type === "auth0" ? userData.user['https://interop.io/io_cb_license_key'] as string : undefined)
-                                 ?? import.meta.env.VITE_IO_CB_LICENSE_KEY as string // TS workaround for unsupported property
-    console.log('Getting config:', {bridgeUrl, licenseKey, userData});
+                                 ?? import.meta.env.VITE_IO_CB_LICENSE_KEY as string; // TS workaround for unsupported property
+    
+    requireNonEmptyString(bridgeUrl, 'VITE_IO_CB_BRIDGE_URL');
+    requireNonEmptyString(licenseKey, 'VITE_IO_CB_LICENSE_KEY');
+    
 
     // Extract user details from login
     const user = userData.user;
@@ -120,11 +130,11 @@ const homeConfig = {
     login: {
         type: "auth0" as const,
         providerOptions: {
-            domain: import.meta.env.VITE_AUTH0_DOMAIN,
-            clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
+            domain: requireNonEmptyString(import.meta.env.VITE_AUTH0_DOMAIN, 'VITE_AUTH0_DOMAIN'),
+            clientId: requireNonEmptyString(import.meta.env.VITE_AUTH0_CLIENT_ID, 'VITE_AUTH0_CLIENT_ID'),
             authorizationParams: {
-                audience: import.meta.env.VITE_AUTH0_AUDIENCE,
-                scope: import.meta.env.VITE_AUTH0_SCOPES,
+                audience: requireNonEmptyString(import.meta.env.VITE_AUTH0_AUDIENCE, 'VITE_AUTH0_AUDIENCE'),
+                scope: requireNonEmptyString(import.meta.env.VITE_AUTH0_SCOPES, 'VITE_AUTH0_SCOPES'),
                 redirect_uri: window.location.origin,
             }
         },
