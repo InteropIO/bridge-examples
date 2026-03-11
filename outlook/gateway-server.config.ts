@@ -10,7 +10,7 @@ import { auth0 } from './gateway-server-helpers/auth0.ts';
 const auth0FlowData: Auth0FlowData = {};
 
 const host = '127.0.0.1';
-const port = '8385'; // same port as glue42
+const port = 8385; // same port as glue42
 
 process.loadEnvFile();
 
