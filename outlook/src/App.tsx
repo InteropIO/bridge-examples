@@ -10,7 +10,9 @@ import config from "./config.json";
 
 const getConfig = (userData: UserData): IOConnectInitSettings => {
     const bridgeUrl = import.meta.env.VITE_IO_CB_BRIDGE_URL || 'http://localhost:8084';
-    const licenseKey = import.meta.env.VITE_IO_CB_LICENSE_KEY || '';
+    const licenseKey = (userData.type === "auth0" ? userData.user['https://interop.io/io_cb_license_key'] as string : undefined)
+                                 ?? import.meta.env.VITE_IO_CB_LICENSE_KEY as string // TS workaround for unsupported property
+    console.log('Getting config:', {bridgeUrl, licenseKey, userData});
 
     // Extract user details from login
     const user = userData.user;
@@ -70,8 +72,29 @@ const getConfig = (userData: UserData): IOConnectInitSettings => {
                         interop: {
                             enabled: true,
                             visibility: [
-                                { restrictions: 'cluster', method: /.*/ }
+                                {
+                                    method: /.*/,
+                                    identity: {
+                                        application: "java-demo-channels"
+                                    },
+                                    restrictions: "cluster"
+                                },
+                                { method: /^T42\..+/, restrictions: "cluster" },
                             ]
+                        },
+                        async getHeaders() {
+                            const headers: Record<string, string> = {};
+                            if (userData && userData.type === "auth0") {
+                                headers["Authorization"] = `Bearer ${userData.user.token}`;
+                            }
+                            return headers;
+                        },
+                        getWebSocketSearchParams() {
+                            const params: Record<string, string> = {};
+                            if (userData && userData.type === "auth0") {
+                                params["access_token"] = `${userData.user.token}`;
+                            }
+                            return params;
                         }
                     }
                 },
@@ -95,14 +118,16 @@ const homeConfig = {
     getIOConnectConfig: getConfig,
     // Simple login - no authentication required for this example
     login: {
-        type: "simple" as const,
-        onLogin: async (username: string, _password: string) => {
-            // For this example, accept any user
-            return {
-                id: username,
-                username
-            };
-        }
+        type: "auth0" as const,
+        providerOptions: {
+            domain: import.meta.env.VITE_AUTH0_DOMAIN,
+            clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
+            authorizationParams: {
+                audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+                scope: import.meta.env.VITE_AUTH0_SCOPES,
+                redirect_uri: window.location.origin,
+            }
+        },
     }
 };
 

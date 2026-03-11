@@ -33,6 +33,7 @@
     "@interopio/react-hooks": "file:../../connect-js/packages/react-hooks",
     "@interopio/core": "file:../../connect-js/packages/core",
     "@interopio/desktop": "file:../../desktop/packages/desktop-client",
+    "opener": "^1.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
