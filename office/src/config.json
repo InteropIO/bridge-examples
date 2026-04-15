@@ -1,0 +1,36 @@
+{
+    "channels": [
+      {
+        "name": "Red",
+        "meta": {
+          "color": "red",
+          "name": "Red",
+          "fdc3": {
+            "id": "fdc3.channel.1",
+            "displayMetadata": {
+              "name": "Channel 1",
+              "glyph": "1"
+            }
+          }
+        }
+      },
+      {
+        "name": "Green",
+        "meta": {
+          "color": "green",
+          "name": "Green",
+          "fdc3": {
+            "id": "fdc3.channel.4",
+            "displayMetadata": {
+              "name": "Channel 4",
+              "glyph": "4"
+            }
+          }
+        }
+      }
+    ],
+    "environment": {
+        "environment": "DEMO",
+        "region": "INTEROP.IO"
+    }
+}

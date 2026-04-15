@@ -1,0 +1,63 @@
+{
+  "version": "4.0.0",
+  "form": {
+    "name": "Interop Licenses",
+    "languages": {
+      "primary": "en"
+    },
+    "nodes": [
+      {
+        "id": "step_wiz0",
+        "type": "STEP",
+        "coordinates": {
+          "x": 500,
+          "y": 0
+        },
+        "alias": "Enter io.CB license key",
+        "config": {
+          "components": [
+            {
+              "id": "io_cb_license_key",
+              "category": "FIELD",
+              "type": "PASSWORD",
+              "label": "io.Connect Browser License Key",
+              "required": false,
+              "sensitive": true,
+              "config": {
+                "hash": "NONE",
+                "complexity": false,
+                "nist": false,
+                "strength_meter": false
+              }
+            },
+            {
+              "id": "next_button_RI80",
+              "category": "BLOCK",
+              "type": "NEXT_BUTTON",
+              "config": {
+                "text": "Continue"
+              }
+            }
+          ],
+          "next_node": "$ending"
+        }
+      }
+    ],
+    "start": {
+      "next_node": "step_wiz0",
+      "coordinates": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "ending": {
+      "resume_flow": true,
+      "coordinates": {
+        "x": 1250,
+        "y": 0
+      }
+    }
+  },
+  "flows": {},
+  "connections": {}
+}
